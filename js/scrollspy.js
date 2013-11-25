@@ -33,7 +33,7 @@
     this.options        = $.extend({}, ScrollSpy.DEFAULTS, options)
     this.selector       = (this.options.target
       || ((href = $(element).attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '')) //strip for ie7
-      || '') + ' .nav li > a'
+      || '') + ' ' + this.options.path
     this.offsets        = $([])
     this.targets        = $([])
     this.activeTarget   = null
@@ -43,7 +43,9 @@
   }
 
   ScrollSpy.DEFAULTS = {
-    offset: 10
+    offset: 10,
+    path: '.nav li > a'
+    activeSelector: 'li'
   }
 
   ScrollSpy.prototype.refresh = function () {
@@ -104,7 +106,7 @@
       + this.selector + '[href="' + target + '"]'
 
     var active = $(selector)
-      .parents('li')
+      .parents(activeSelectorl)
       .addClass('active')
 
     if (active.parent('.dropdown-menu').length)  {
